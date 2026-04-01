@@ -8,12 +8,33 @@ class Controller:
         # the model, which implements the logic of the program and holds the data
         self._model = model
 
-    def handle_hello(self, e):
-        """Simple function to handle a button-pressed event,
-        and consequently print a message on screen"""
-        name = self._view.txt_name.value
-        if name is None or name == "":
-            self._view.create_alert("Inserire il nome")
+
+    def fillddCorsi(self):
+        lista=self._model.getAllCorsi()
+        for i in lista:
+            self._view._ddSelezioneCorso.options.append(ft.dropdown.Option(key=i.codIns,
+                                                                           data=i,
+                                                                           text=str(i),
+                                                                           ))
+
+    def handleCercaIscritti(self, e):
+        codins=self._view._ddSelezioneCorso.value
+        listaIscritti=self._model.getStudentiDiUnCorso(codins)
+        if codins is None:
+            self._view.create_alert("Selezionare un corso!")
             return
-        self._view.txt_result.controls.append(ft.Text(f"Hello, {name}!"))
+        else:
+            if len(listaIscritti)!=0:
+                for i in listaIscritti:
+                    self._view._lvOut.controls.append(ft.Text(f"{i}"))
+            else:
+                self._view._lvOut.controls.append(ft.Text(f"Nessun utente iscritto al corso selezionato"))
         self._view.update_page()
+
+    def handleCercaStudente(selfself, e):
+        pass
+    def handleCercaCorsi(self, e):
+        pass
+    def handleIscrivi(self, e):
+        pass
+
