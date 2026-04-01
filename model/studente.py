@@ -7,7 +7,7 @@ class Studente:
    matricola: int
    cognome:str
    nome:str
-   cds:str
+   CDS:str
 
    def __eq__(self, other):
        self.matricola == other.matricola

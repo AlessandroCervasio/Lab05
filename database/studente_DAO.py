@@ -22,10 +22,31 @@ class studente_DAO:
             res.append(Studente(matricola=row["matricola"],
                              cognome=row["cognome"],
                              nome=row["nome"],
-                             cds=row["cds"]))
+                             CDS=row["cds"]))
         cursor.close()
         cnx.close()
         return res
+
+    @staticmethod
+    def getStudenteConMatricola(matricola):
+        cnx = get_connection()
+        cursor = cnx.cursor(dictionary=True)
+        query = """SELECT *
+                                FROM studente
+                                WHERE matricola=%s
+
+                    """
+        cursor.execute(query, (matricola,))
+
+        row=cursor.fetchone()
+        if row is None:
+            return None
+        else:
+            res=Studente(row["matricola"], row["cognome"], row["nome"], row["CDS"])
+            k=cursor.fetchall()
+            cursor.close()
+            cnx.close()
+            return res
 
 
 

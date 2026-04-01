@@ -31,8 +31,20 @@ class Controller:
                 self._view._lvOut.controls.append(ft.Text(f"Nessun utente iscritto al corso selezionato"))
         self._view.update_page()
 
-    def handleCercaStudente(selfself, e):
-        pass
+    def handleCercaStudente(self, e):
+        matricola= self._view._txtMatricolaIn.value
+        studente=self._model.getStudenteConMatricola(matricola)
+        if matricola is None or matricola == "":
+            self._view.create_alert("Selezionare una matricola!")
+            return
+        else:
+            self._view._txtNomeRead.value=studente.nome
+            self._view._txtCognomeRead.value=studente.cognome
+
+
+        self._view.update_page()
+
+
     def handleCercaCorsi(self, e):
         pass
     def handleIscrivi(self, e):

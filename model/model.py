@@ -12,3 +12,7 @@ class Model:
     def getStudentiDiUnCorso(self, codins):
         res=sd.getStudentiDiUnCorso(codins)
         return res
+
+    def getStudenteConMatricola(self, matricola):
+        res=sd.getStudenteConMatricola(matricola)
+        return res
