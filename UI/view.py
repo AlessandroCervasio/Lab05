@@ -39,9 +39,9 @@ class View(ft.UserControl):
 
         row1=ft.Row([self._ddSelezioneCorso, self._btnCercaIscritti])
 
-        self._txtMatricolaIn=ft.TextField(label="matricola", width=450)
-        self._txtNomeRead=ft.TextField(label="nome", width=450, read_only=True)
-        self._txtCognomeRead = ft.TextField(label="cognome", width=450, read_only=True)
+        self._txtMatricolaIn=ft.TextField(label="matricola", width=400)
+        self._txtNomeRead=ft.TextField(label="nome", width=400, read_only=True)
+        self._txtCognomeRead = ft.TextField(label="cognome", width=400, read_only=True)
 
         row2=ft.Row([self._txtMatricolaIn, self._txtNomeRead, self._txtCognomeRead])
 
@@ -53,7 +53,7 @@ class View(ft.UserControl):
         self._btnIscrivi = ft.ElevatedButton(text="Iscrivi", width=220,
                                                    on_click=self._controller.handleIscrivi)
 
-        row3=ft.Row([self._btnCercaStudente, self._btnCercaCorsi, self._btnIscrivi])
+        row3=ft.Row([self._btnCercaStudente, self._btnCercaCorsi, self._btnIscrivi], alignment=ft.MainAxisAlignment.CENTER)
 
         self._lvOut=ft.ListView(expand=True)
 

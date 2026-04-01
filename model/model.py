@@ -1,5 +1,6 @@
 from database.corso_DAO import corso_DAO as cd
 from database.studente_DAO import studente_DAO as sd
+from database.iscrizione_DAO import iscrizione_DAO as id
 
 class Model:
     def __init__(self):
@@ -18,5 +19,13 @@ class Model:
         return res
 
     def getCorsiwMatricola(self, matricola):
-        res=cd.getCorsiwMatricola(matricola)
-        return res
+        lista=cd.getCorsiwMatricola(matricola)
+        return lista
+
+    def aggiungiIscrizione(self, matricola, codins):
+        esiste=id.iscrizioneEsiste(matricola,codins)
+        if esiste:
+            return False
+        else:
+            id.aggiungiIscrizione(matricola,codins)
+            return True

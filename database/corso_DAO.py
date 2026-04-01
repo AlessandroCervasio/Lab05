@@ -32,6 +32,7 @@ class corso_DAO:
                     from corso c, iscrizione i
                     where c.codins =i.codins 
                     and i.matricola=%s
+                    
                     """
         cursor.execute(query,(matricola,))
 

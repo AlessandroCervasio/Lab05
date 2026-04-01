@@ -71,13 +71,14 @@ class Controller:
 
             lista_corsi=self._model.getCorsiwMatricola(matricola)
 
-            if not len(lista_corsi):
+
+            if len(lista_corsi)==0:
                 self._view._lvOut.controls.append(ft.Text("Nessun corso frequentato dallo studente"))
 
             else:
 
                 self._view._lvOut.controls.append(
-                    ft.Text("Di seguito i corsi a cui è iscritto l'utente con la matricola selezionata"))
+                    ft.Text(f"Risultano {len(lista_corsi)} corsi:"))
                 for i in lista_corsi:
                     self._view._lvOut.controls.append(ft.Text(i))
 
@@ -88,5 +89,37 @@ class Controller:
 
 
     def handleIscrivi(self, e):
-        pass
+        self._view._lvOut.controls.clear()
+
+        matricola=self._view._txtMatricolaIn.value
+
+        if matricola is None or matricola == "":
+            self._view.create_alert("Selezionare una matricola!")
+            return
+        studente = self._model.getStudenteConMatricola(matricola)
+        if studente is None:
+            self._view.create_alert("Selezionare una matricola valida!")
+            self._view.update_page()
+
+            return
+
+        codins=self._view._ddSelezioneCorso.value
+
+        if codins is None:
+            self._view.create_alert("Selezionare un corso!")
+            return
+
+        iscrivi=self._model.aggiungiIscrizione(matricola,codins)
+        if iscrivi:
+            self._view._lvOut.controls.append(ft.Text("Studente iscritto correttamente"))
+            self._view.update_page()
+
+        else:
+            self._view._lvOut.controls.append(ft.Text("Lo studente è già iscritto al corso"))
+            self._view.update_page()
+
+
+
+
+
 
