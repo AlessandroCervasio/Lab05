@@ -16,3 +16,7 @@ class Model:
     def getStudenteConMatricola(self, matricola):
         res=sd.getStudenteConMatricola(matricola)
         return res
+
+    def getCorsiwMatricola(self, matricola):
+        res=cd.getCorsiwMatricola(matricola)
+        return res

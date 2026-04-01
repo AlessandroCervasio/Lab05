@@ -25,6 +25,7 @@ class Controller:
             return
         else:
             if len(listaIscritti)!=0:
+                self._view._lvOut.controls.clear()
                 for i in listaIscritti:
                     self._view._lvOut.controls.append(ft.Text(f"{i}"))
             else:
@@ -33,9 +34,16 @@ class Controller:
 
     def handleCercaStudente(self, e):
         matricola= self._view._txtMatricolaIn.value
-        studente=self._model.getStudenteConMatricola(matricola)
         if matricola is None or matricola == "":
-            self._view.create_alert("Selezionare una matricola!")
+            self._view.create_alert("Selezionare una matricola valida!")
+            self._view.update_page()
+
+            return
+        studente = self._model.getStudenteConMatricola(matricola)
+        if studente is None:
+            self._view.create_alert("Selezionare una matricola valida!")
+            self._view.update_page()
+
             return
         else:
             self._view._txtNomeRead.value=studente.nome
@@ -46,7 +54,39 @@ class Controller:
 
 
     def handleCercaCorsi(self, e):
-        pass
+        matricola = self._view._txtMatricolaIn.value
+
+        if matricola is None or matricola == "":
+            self._view.create_alert("Selezionare una matricola!")
+            return
+        studente = self._model.getStudenteConMatricola(matricola)
+        if studente is None:
+            self._view.create_alert("Selezionare una matricola valida!")
+            self._view.update_page()
+
+            return
+
+        else:
+            self._view._lvOut.controls.clear()
+
+            lista_corsi=self._model.getCorsiwMatricola(matricola)
+
+            if not len(lista_corsi):
+                self._view._lvOut.controls.append(ft.Text("Nessun corso frequentato dallo studente"))
+
+            else:
+
+                self._view._lvOut.controls.append(
+                    ft.Text("Di seguito i corsi a cui è iscritto l'utente con la matricola selezionata"))
+                for i in lista_corsi:
+                    self._view._lvOut.controls.append(ft.Text(i))
+
+        self._view.update_page()
+
+
+
+
+
     def handleIscrivi(self, e):
         pass
 
